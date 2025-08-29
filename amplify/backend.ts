@@ -14,13 +14,15 @@ const backend = defineBackend({
   storage
 });
 
-const storageStack = Stack.of(backend.storage);
+// const storageStack = Stack.of(storage);
 
 // Replace auto-generated bucket with existing one
 const existingBucket = Bucket.fromBucketName(
-  storageStack,
+  this,
   'ExistingBucket',
   branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
 );
 
 backend.storage.resources.bucket = existingBucket;
+
+export default backend;
