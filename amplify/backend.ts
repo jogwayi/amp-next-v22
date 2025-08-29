@@ -1,10 +1,9 @@
 import { defineBackend } from '@aws-amplify/backend';
-import { Stack } from 'aws-cdk-lib';
-
-import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import { auth } from './auth/resource';
 import { data } from './data/resource';
 import { storage } from './storage/resource';
+
 
 const branch = process.env.AWS_BRANCH || 'dev';
 
@@ -14,19 +13,11 @@ const backend = defineBackend({
   storage
 });
 
-const s3Bucket = backend.storage.resources.bucket;
+const exactBucketName = branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
 
-const cfnBucket = s3Bucket.node.defaultChild as CfnBucket;
+console.log("Bucket", JSON.stringify(Object.keys(backend.storage.resources.bucket)), backend.storage.resources.bucket.stack.artifactId)
 
-const storageStack = Stack.of(cfnBucket);
-
-// Replace auto-generated bucket with existing one
-const existingBucket = Bucket.fromBucketName(
-  storageStack,
-  'ExistingBucket',
-  branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
-);
-
-backend.storage.resources.bucket = existingBucket;
-
-export default backend;
+backend.storage.resources.bucket = new s3.Bucket(backend.storage.resources.bucket, backend.storage.resources.bucket.stack.artifactId, {
+      bucketName: exactBucketName      
+    });
+// backend.storage.resources.bucket.addPropertyOverride('BucketName', exactBucketName);
