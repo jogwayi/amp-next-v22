@@ -6,7 +6,7 @@ import { storage } from './storage/resource';
 
 const branch = process.env.AWS_BRANCH || 'dev';
 
-defineBackend({
+const backend = defineBackend({
   auth,
   data,
   storage
