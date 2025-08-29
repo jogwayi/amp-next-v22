@@ -33,4 +33,4 @@ const existingBucket = Bucket.fromBucketName(
 
 storage.resources.bucket = existingBucket;
 
-export  { storage }
+export  default storage
