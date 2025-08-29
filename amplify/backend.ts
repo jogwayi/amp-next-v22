@@ -18,7 +18,7 @@ const customBucketStack = backend.createStack("custom-bucket-stack");
 
 
 // Import existing bucket
-const customBucket = Bucket.fromBucketName(customBucketStack, "TheCustomBucket", existingBucketName});
+const customBucket = Bucket.fromBucketName(customBucketStack, "TheCustomBucket", existingBucketName);
 
 
 backend.addOutput({
