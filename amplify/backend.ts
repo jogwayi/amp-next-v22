@@ -11,7 +11,6 @@ const backend = defineBackend({
   data
 });
 
-const branch = process.env.AWS_BRANCH || 'dev';
 const existingBucketName = branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
 
 const customBucketStack = backend.createStack("custom-bucket-stack");
