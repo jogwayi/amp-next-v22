@@ -1,8 +1,9 @@
 import { defineStorage } from '@aws-amplify/backend';
 
 const branch = process.env.AWS_BRANCH || 'dev';
-export const storage = defineStorage({
-  name: 'myAppStorage',
+
+const storage = defineStorage({
+  name: branch === 'main' ? 'prodStorage' : 'devStageStorage',
   access: (allow) => ({
     'public/*': [
       allow.guest.to(['read']),
@@ -15,13 +16,4 @@ export const storage = defineStorage({
       allow.entity('identity').to(['read', 'write', 'delete'])
     ]
   })
-});
-
-// Add bucket naming override
-storage.resources.bucket.addPropertyOverride('BucketName', {
-  'Fn::If': [
-    { 'Fn::Equals': [{ Ref: 'AWS::StackName' }, 'amp-next-v22-main'] },
-    'myapp-storage-prod',
-    'myapp-storage-dev-stage'
-  ]
 });
