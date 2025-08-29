@@ -1,9 +1,7 @@
 import { defineStorage } from '@aws-amplify/backend';
 
-const branch = process.env.AWS_BRANCH || 'dev';
-
 export const storage = defineStorage({
-  name: branch === 'main' ? 'prodStorage' : 'devStageStorage',
+  name: 'defaultStorage',
   access: (allow) => ({
     'public/*': [
       allow.guest.to(['read']),
