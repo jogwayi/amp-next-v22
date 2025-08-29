@@ -1,5 +1,6 @@
 import { defineStorage } from '@aws-amplify/backend';
 
+const branch = process.env.AWS_BRANCH || 'dev';
 export const storage = defineStorage({
   name: 'myAppStorage',
   access: (allow) => ({
@@ -16,10 +17,10 @@ export const storage = defineStorage({
   })
 });
 
-// Customize bucket naming based on branch
-storage.getInstance().addOverride('Properties.BucketName', {
+// Add bucket naming override
+storage.resources.bucket.addPropertyOverride('BucketName', {
   'Fn::If': [
-    'IsMainBranch',
+    { 'Fn::Equals': [{ Ref: 'AWS::StackName' }, 'amp-next-v22-main'] },
     'myapp-storage-prod',
     'myapp-storage-dev-stage'
   ]
