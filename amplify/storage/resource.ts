@@ -20,11 +20,11 @@ const storage = defineStorage({
     ]
   })
 });
-const s3Bucket = storage.resources.bucket;
+//const s3Bucket = storage.resources.bucket;
 
-const cfnBucket = s3Bucket.node.defaultChild as CfnBucket;
+// const cfnBucket = s3Bucket.node.defaultChild as CfnBucket;
 
-const storageStack = Stack.of(cfnBucket);
+const storageStack = Stack.of(storage);
 const existingBucket = Bucket.fromBucketName(
   storageStack,
   'ExistingBucket',
