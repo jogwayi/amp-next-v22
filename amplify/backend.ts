@@ -14,7 +14,7 @@ const backend = defineBackend({
   storage
 });
 
-const storageStack = Stack.of(backend.storage);
+const storageStack = Stack.of(backend.storage.resources.bucket);
 
 // Replace auto-generated bucket with existing one
 const existingBucket = Bucket.fromBucketName(
