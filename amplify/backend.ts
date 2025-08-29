@@ -14,7 +14,11 @@ const backend = defineBackend({
   storage
 });
 
-const storageStack = Stack.of(backend.storage.resources.bucket);
+const s3Bucket = backend.storage.resources.bucket;
+
+const cfnBucket = s3Bucket.node.defaultChild as s3.CfnBucket;
+
+const storageStack = Stack.of(cfnBucket);
 
 // Replace auto-generated bucket with existing one
 const existingBucket = Bucket.fromBucketName(
