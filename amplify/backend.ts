@@ -1,5 +1,5 @@
 import { defineBackend } from '@aws-amplify/backend';
-import { Stack } from ‘aws-cdk-lib’;
+import { Stack } from 'aws-cdk-lib';
 
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { auth } from './auth/resource';
@@ -14,11 +14,11 @@ const backend = defineBackend({
   storage
 });
 
-// const storageStack = Stack.of(storage);
+const storageStack = Stack.of(backend.storage);
 
 // Replace auto-generated bucket with existing one
 const existingBucket = Bucket.fromBucketName(
-  this,
+  storageStack,
   'ExistingBucket',
   branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
 );
