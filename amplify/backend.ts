@@ -15,7 +15,7 @@ const backend = defineBackend({
 
 const exactBucketName = branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
 
-console.log("Bucket", JSON.stringify(backend.storage.resources.bucket))
+console.log("Bucket", JSON.stringify(Object.keys(backend.storage.resources.bucket)))
 
 backend.storage.resources.bucket = new s3.Bucket(backend.storage.resources.bucket, 'MyCustomBucket', {
       bucketName: exactBucketName      
