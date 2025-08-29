@@ -10,3 +10,8 @@ const backend = defineBackend({
   data,
   storage
 });
+
+const branch = process.env.AWS_BRANCH || 'dev';
+
+const exactBucketName = branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
+backend.storage.resources.bucket.bucketName = exactBucketName;
