@@ -15,9 +15,9 @@ const backend = defineBackend({
 
 const exactBucketName = branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
 
-console.log("Bucket", JSON.stringify(Object.keys(backend.storage.resources.bucket)), backend.storage.resources.bucket.stack._stackName)
+console.log("Bucket", JSON.stringify(Object.keys(backend.storage.resources.bucket)), backend.storage.resources.bucket.stack.artifactId)
 
-backend.storage.resources.bucket = new s3.Bucket(backend.storage.resources.bucket, backend.storage.resources.bucket.stack._stackName, {
+backend.storage.resources.bucket = new s3.Bucket(backend.storage.resources.bucket, backend.storage.resources.bucket.stack.artifactId, {
       bucketName: exactBucketName      
     });
 // backend.storage.resources.bucket.addPropertyOverride('BucketName', exactBucketName);
