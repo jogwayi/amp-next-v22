@@ -13,4 +13,4 @@ const backend = defineBackend({
 });
 
 const exactBucketName = branch === 'main' ? 'existing-prod-bucket-name': 'existing-dev-bucket-name'
-backend.storage.resources.bucket.bucketName = exactBucketName;
+backend.storage.resources.bucket.addPropertyOverride('BucketName', exactBucketName);
